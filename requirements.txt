@@ -12,6 +12,13 @@ langchain-google-community==2.0.1
 langchain-text-splitters==0.3.0
 sentence-transformers==3.2.0
 pypdf==5.0.1
-pdf2json==0.3
 openpyxl==3.1.5
 docassemble==1.5.16
+dspy-ai==2.5.12
+instructor==1.5.1
+outlines==0.0.46
+colbert-ai==0.2.19
+ragas==0.2.1
+deepeval==0.21.57
+langfuse==2.27.3
+
