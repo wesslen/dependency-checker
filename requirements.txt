@@ -21,3 +21,4 @@ colbert-ai==0.2.19
 ragas==0.2.1
 deepeval==0.21.57
 vllm==0.5.0.post1
+rouge-score==0.1.2
