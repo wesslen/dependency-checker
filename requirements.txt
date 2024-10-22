@@ -6,6 +6,7 @@ llama-index-retrievers-bm25==0.4.0
 langchain==0.3.3
 langchain-community==0.3.2
 langchain-core==0.3.10
+langchain-elasticsearch==0.2.2
 langchain-google-vertexai==2.0.5
 langchain-google-genai==2.0.1
 langchain-google-community==2.0.1
