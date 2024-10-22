@@ -27,3 +27,12 @@ faiss-cpu==1.9.0
 pinecone==5.3.1
 trl==0.11.4
 peft==0.12.0
+bertopic==0.16.3
+ipython==8.27.0
+hdbscan==0.8.38.post2
+umap-learn==0.5.6
+onnx=1.16.2
+jupyterlab==4.2.5
+jupyter-server==2.14.2
+spacy==3.7.6
+deepspeed==0.15.1
