@@ -39,3 +39,4 @@ deepspeed==0.15.1
 bokeh==3.5.2
 mysql-connector-python==9.0.0
 unstructured==0.15.13
+pytesseract==0.3.13
