@@ -36,3 +36,6 @@ jupyterlab==4.2.5
 jupyter-server==2.14.2
 spacy==3.7.6
 deepspeed==0.15.1
+bokeh==3.5.2
+mysql-connector-python==9.0.0
+unstructured==0.15.13
