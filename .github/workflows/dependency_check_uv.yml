@@ -31,8 +31,10 @@ jobs:
       run: |
         uv venv
         uv add pipdeptree
+        ls
     - name: Check dependencies
       run: |
+        cd venv
         uv pip sync requirements.txt
         uv pipdeptree
     - name: Run pip freeze
