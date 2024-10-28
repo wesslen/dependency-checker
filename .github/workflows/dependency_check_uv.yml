@@ -29,6 +29,7 @@ jobs:
         echo "$HOME/.cargo/bin" >> $GITHUB_PATH
     - name: Install dependencies
       run: |
+        uv venv
         uv pip install pipdeptree
     - name: Check dependencies
       run: |
