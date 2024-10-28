@@ -27,18 +27,16 @@ jobs:
         version: "0.4.27"
     - name: Set up Python
       run: uv python install ${{ github.event.inputs.python-version }}
-    - name: Install dependencies
+    - name: Install and check dependencies
       run: |
         uv init example -p ${{ github.event.inputs.python-version }}
         cd example
         uv venv
-        uv add pipdeptree
-    - name: Check dependencies
-      run: |
         uv pip sync requirements.txt
     - name: Install dependencies and view tree
       run: |
         uv pip install -r requirements.txt
+        uv add pipdeptree
         uv pipdeptree
     - name: Run pip freeze
       run: uv pip freeze
