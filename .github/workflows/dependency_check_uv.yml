@@ -36,7 +36,7 @@ jobs:
         uv pip sync requirements.txt
         uv pip install -r requirements.txt
         uv add pipdeptree
-        uv pipdeptree
+        uv tree
         uv pip freeze
     # - name: Run tests
     #   run: |
