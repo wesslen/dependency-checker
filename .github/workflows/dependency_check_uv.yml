@@ -32,6 +32,7 @@ jobs:
         cd dependencies
     - name: Add dependencies
       run: |
+        uv venv
         uv pip sync requirements.txt
         uv tree
     - name: Run pip freeze
