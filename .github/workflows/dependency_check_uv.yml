@@ -1,4 +1,5 @@
 name: Manual (uv) Dependency Check
+
 on:
   workflow_dispatch:
     inputs:
@@ -14,6 +15,7 @@ on:
         - '3.10'
         - '3.11'
         - '3.12'
+
 jobs:
   dependency-check:
     runs-on: ubuntu-latest
