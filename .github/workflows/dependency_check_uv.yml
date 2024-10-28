@@ -34,13 +34,13 @@ jobs:
         cd example
         uv venv
         uv pip sync requirements.txt
-    - name: Install dependencies and view tree
+    - name: Install dependencies and view tree/freeze
       run: |
+        uv venv
         uv pip install -r requirements.txt
         uv add pipdeptree
         uv pipdeptree
-    - name: Run pip freeze
-      run: uv pip freeze
+        uv pip freeze
     # - name: Run tests
     #   run: |
     #     uv pip install pytest
