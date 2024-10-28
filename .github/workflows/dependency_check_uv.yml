@@ -30,6 +30,7 @@ jobs:
     - name: Install and check dependencies
       run: |
         uv init example -p ${{ github.event.inputs.python-version }}
+        cp requirements.txt example/requirements.txt
         cd example
         uv venv
         uv pip sync requirements.txt
