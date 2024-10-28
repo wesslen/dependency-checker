@@ -1,0 +1,42 @@
+name: Manual (uv) Dependency Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: 'Python version'
+        required: true
+        default: '3.11'
+        type: choice
+        options:
+        - '3.7'
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - '3.12'
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ github.event.inputs.python-version }}
+    - name: Set up uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        uv init dependencies
+        cd dependencies
+    - name: Add dependencies
+      run: |
+        uv pip sync requirements.txt
+        uv tree
+    - name: Run pip freeze
+      run: pip freeze
+    # - name: Run tests
+    #   run: |
+    #     pip install pytest
+    #     pytest
