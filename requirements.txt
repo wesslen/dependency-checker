@@ -43,3 +43,4 @@ unstructured==0.15.13
 pytesseract==0.3.13
 impala==0.2.0
 boto3==1.35.48
+sacrebleu==2.4.0
