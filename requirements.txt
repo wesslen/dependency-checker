@@ -44,3 +44,6 @@ pytesseract==0.3.13
 impala==0.2.0
 boto3==1.35.48
 sacrebleu==2.4.0
+s3fs==2024.10.0
+dask==2024.10.0
+
