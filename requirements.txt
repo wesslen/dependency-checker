@@ -35,7 +35,7 @@ vllm==0.5.0.post1
 rouge-score==0.1.2
 bert-score==0.3.13
 faiss-cpu==1.9.0
-faiss-gpu==1.7.1
+# faiss-gpu==1.7.1
 pinecone==5.3.1
 trl==0.11.4
 peft==0.12.0
