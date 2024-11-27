@@ -63,3 +63,4 @@ evaluate==0.4.3
 evidently==0.4.37
 pytest==2.6.0
 tritonclient==2.51.0
+bitsandbytes==0.43.3
