@@ -59,6 +59,6 @@ s3fs<=2024.10.0
 dask==2024.10.0
 elasticsearch==8.16.0
 evaluate==0.4.3
-giskard[llm]==2.14.0
+# giskard[llm]==2.14.0
 evidently==0.4.37
 pytest==2.6.0
