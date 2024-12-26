@@ -26,7 +26,7 @@ tabula-py
 pymupdf
 pymupdf4llm
 lxml
-dspy-ai
+dspy
 instructor
 outlines
 colbert-ai
@@ -64,3 +64,8 @@ evaluate
 evidently
 pytest
 tritonclient
+xlrd
+langgraph
+langsmith
+fuzzywuzzy
+flair
