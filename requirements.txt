@@ -29,7 +29,6 @@ docx2python
 pdfplumber
 pdf2json
 tabula-py
-# pypdf-table-extraction==0.0.2
 pymupdf
 pymupdf4llm
 lxml
@@ -42,7 +41,6 @@ deepeval
 rouge-score
 bert-score
 faiss-cpu
-# faiss-gpu==1.7.1
 pinecone
 trl
 peft
@@ -53,7 +51,6 @@ hdbscan
 umap-learn
 onnx
 jupyterlab
-# jupyter-server==2.14.2
 spacy
 deepspeed
 bokeh
@@ -67,7 +64,6 @@ s3fs
 dask
 elasticsearch
 evaluate
-# giskard[llm]
 evidently
 pytest
 tritonclient
