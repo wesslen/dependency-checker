@@ -2,10 +2,16 @@ vertexai
 google-cloud-documentai
 google-cloud-storage
 llama-index
+llama-index-finetuning
+llama-index-llms-langchain
+llama-index-llms-openai
+llama-index-multi-modal-llms-openai
+llama-index-readers-llama-parse
 llama-index-readers-file
 llama-index-retrievers-bm25
 llama-index-vector-stores-elasticsearch
 llama-index-vector-stores-faiss
+llama-cpp-python
 langchain
 langchain-community
 langchain-core
@@ -21,6 +27,7 @@ docassemble
 docling
 docx2python
 pdfplumber
+pdf2json
 tabula-py
 # pypdf-table-extraction==0.0.2
 pymupdf
