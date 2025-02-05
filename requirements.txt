@@ -62,15 +62,13 @@ fuzzywuzzy
 conda-pack
 credentials
 cx-oracle
-dash
 deap
-fasttest
 gensim
 lightgbm
 pdf2image
 pygad
+altair
 seaborn
-shap
 stanfordnlp
 teradatasql
 tpot
