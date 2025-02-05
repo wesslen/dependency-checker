@@ -1,3 +1,5 @@
+transformers==4.44.2
+llvmlite==0.43.0
 vertexai
 google-cloud-documentai
 google-cloud-storage
