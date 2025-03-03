@@ -6,7 +6,7 @@ on:
       python-version:
         description: 'Python version'
         required: true
-        default: '3.11'
+        default: '3.12.4'
         type: choice
         options:
         - '3.7'
@@ -15,6 +15,7 @@ on:
         - '3.10'
         - '3.11'
         - '3.12'
+        - '3.12.4'
 
 jobs:
   dependency-check:
