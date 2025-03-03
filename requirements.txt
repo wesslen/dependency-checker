@@ -1,6 +1,6 @@
 setuptools
 transformers
-llvmlite
+# llvmlite
 vertexai
 google-cloud-documentai
 google-cloud-storage
