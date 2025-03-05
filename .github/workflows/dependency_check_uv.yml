@@ -34,6 +34,7 @@ jobs:
         cp requirements.txt example/requirements.txt
         cd example
         uv venv
+        uv pip install setuptools
         uv pip sync requirements.txt
         uv pip install -r requirements.txt
         uv add pipdeptree
