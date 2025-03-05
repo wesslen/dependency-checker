@@ -1,7 +1,6 @@
-setuptools
-transformers==4.44.2
-llvmlite==0.43.0
+transformers
 vertexai
+google-genai
 google-cloud-documentai
 google-cloud-storage
 llama-index
@@ -13,6 +12,12 @@ llama-index-readers-file
 llama-index-retrievers-bm25
 llama-index-vector-stores-elasticsearch
 llama-index-vector-stores-faiss
+# llama-index-embeddings-vertex
+llama-index-embeddings-google
+# llama-index-llms-vertex
+llama-index-llms-gemini
+# llama-index-indices-managed-vertexai
+# llama-index-retrievers-vertexai-search
 langchain
 langchain-community
 langchain-core
@@ -22,57 +27,68 @@ langchain-google-genai
 langchain-google-community
 langchain-text-splitters
 sentence-transformers
-pypdf
-openpyxl
-docassemble
 docling
-docx2python
-pdfplumber
-pdf2json
-tabula-py
+pypdf
 pymupdf
+unstructured
+openpyxl
+tabula-py
+pdfplumber
+docx2python
+pdf2image
+docassemble
+pdf2json
 pymupdf4llm
+pdfreader
 lxml
+xlrd
 dspy-ai
 instructor
 outlines
 colbert-ai
 ragas
 deepeval
+faiss-cpu
+evaluate
+pytest
+rank-bm25
 rouge-score
 bert-score
-faiss-cpu
+sacrebleu
 bertopic
-ipython
 hdbscan
 umap-learn
-jupyterlab
-bokeh
+teradatasql
 mysql-connector-python
-unstructured
 pytesseract
 impala
 boto3
-sacrebleu
 s3fs
+cx-oracle
 dask
-evaluate
-pytest
-xlrd
 langgraph
 langsmith
+autogen
 fuzzywuzzy
-conda-pack
-credentials
-cx-oracle
-deap
-lightgbm
-pdf2image
-pygad
+# conda-pack
+# credentials
+# deap
+# lightgbm
+# pygad
 altair
 seaborn
-stanfordnlp
-teradatasql
-tpot
-pdfreader
-rank-bm25
+jupyterlab
+bokeh
+# spacy
+# stanfordnlp
+# tpot
+pydantic-ai
+arize-phoenix
+openinference-instrumentation-vertexai
+openinference-instrumentation-dspy
+openinference-instrumentation-llama-index
+unsloth
+peft
+trl
+accelerate
+llama-index-finetuning
