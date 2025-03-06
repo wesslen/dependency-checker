@@ -42,12 +42,12 @@ pymupdf4llm
 pdfreader
 lxml
 xlrd
-dspy-ai
+dspy-ai==2.6.5
 instructor
-outlines
+outlines==0.1.14
 colbert-ai
 ragas
-deepeval
+deepeval==2.4.1
 faiss-cpu
 evaluate
 pytest
@@ -67,9 +67,9 @@ s3fs
 cx-oracle
 dask
 langgraph
-langsmith
+langsmith==0.0.77
 autogen
-fuzzywuzzy
+fuzzywuzzy==0.15.1
 # conda-pack
 # credentials
 # deap
@@ -77,13 +77,12 @@ fuzzywuzzy
 # pygad
 altair
 seaborn
-jupyterlab
 bokeh
 # spacy
 # stanfordnlp
 # tpot
 pydantic-ai
-arize-phoenix
+arize-phoenix==7.1.2
 # openinference-instrumentation-vertexai
 # openinference-instrumentation-dspy
 # openinference-instrumentation-llama-index
