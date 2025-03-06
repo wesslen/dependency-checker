@@ -67,7 +67,7 @@ s3fs
 cx-oracle
 dask
 langgraph
-langsmith==0.0.77
+langsmith
 autogen
 fuzzywuzzy==0.15.1
 # conda-pack
