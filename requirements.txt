@@ -78,7 +78,7 @@ fuzzywuzzy==0.15.1
 altair
 seaborn
 bokeh
-# spacy
+spacy
 # stanfordnlp
 # tpot
 pydantic-ai
