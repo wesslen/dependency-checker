@@ -82,7 +82,7 @@ bokeh
 # stanfordnlp
 # tpot
 pydantic-ai
-arize-phoenix==7.1.2
+arize-phoenix
 # openinference-instrumentation-vertexai
 # openinference-instrumentation-dspy
 # openinference-instrumentation-llama-index
