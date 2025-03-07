@@ -96,7 +96,10 @@ impyla
 hLDA
 tomotopy
 opencv-python
-
+ipython-widgets
+jupyterlab
+ipython
+jupyter-server
 bitsandbytes
 # risotto
 communities
