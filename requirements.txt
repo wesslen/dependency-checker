@@ -96,7 +96,7 @@ impyla
 hLDA
 tomotopy
 opencv-python
-ipython-widgets
+ipywidgets
 jupyterlab
 ipython
 jupyter-server
