@@ -95,6 +95,8 @@ impyla
 # pytorchltr
 hLDA
 tomotopy
+opencv-python
+
 bitsandbytes
 # risotto
 communities
