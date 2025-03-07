@@ -95,5 +95,6 @@ impyla
 # pytorchltr
 hLDA
 tomotopy
+bitsandbytes
 # risotto
 communities
