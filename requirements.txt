@@ -103,3 +103,4 @@ jupyter-server
 bitsandbytes
 # risotto
 communities
+pypdf_table_extraction
