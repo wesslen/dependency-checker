@@ -99,6 +99,7 @@ tomotopy
 opencv-python
 ipywidgets
 jupyterlab
+jupyterlab-widgets
 ipython
 jupyter-server
 bitsandbytes
