@@ -103,6 +103,6 @@ jupyterlab-widgets
 ipython
 jupyter-server
 bitsandbytes
-# risotto
+risotto
 communities
 pypdf_table_extraction
