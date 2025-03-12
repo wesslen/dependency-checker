@@ -1,0 +1,10 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 7 packages in 8ms
+Installed 7 packages in 19ms
+ + colorama==0.4.6
+ + lxml==5.3.1
+ + numpy==2.2.3
+ + portalocker==3.1.1
+ + regex==2024.11.6
+ + sacrebleu==2.5.1
+ + tabulate==0.9.0

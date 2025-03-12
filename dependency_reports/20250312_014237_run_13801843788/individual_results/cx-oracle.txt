@@ -1,0 +1,5 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 1 package in 1ms
+Prepared 1 package in 11.56s
+Installed 1 package in 0.81ms
+ + cx-oracle==8.3.0

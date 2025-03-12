@@ -1,0 +1,12 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 9 packages in 7ms
+Installed 9 packages in 18ms
+ + absl-py==2.1.0
+ + click==8.1.8
+ + joblib==1.4.2
+ + nltk==3.9.1
+ + numpy==2.2.3
+ + regex==2024.11.6
+ + rouge-score==0.1.2
+ + six==1.17.0
+ + tqdm==4.67.1

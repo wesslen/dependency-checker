@@ -1,0 +1,14 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 11 packages in 3ms
+Installed 11 packages in 9ms
+ + click==8.1.8
+ + cloudpickle==3.1.1
+ + dask==2025.2.0
+ + fsspec==2025.3.0
+ + importlib-metadata==8.6.1
+ + locket==1.0.0
+ + packaging==24.2
+ + partd==1.4.2
+ + pyyaml==6.0.2
+ + toolz==1.0.0
+ + zipp==3.21.0

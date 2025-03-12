@@ -1,0 +1,7 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 3 packages in 5ms
+Prepared 1 package in 310ms
+Installed 3 packages in 18ms
+ + faiss-cpu==1.10.0
+ + numpy==2.2.3
+ + packaging==24.2

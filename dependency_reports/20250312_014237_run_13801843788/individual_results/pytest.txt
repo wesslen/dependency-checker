@@ -1,0 +1,7 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 4 packages in 1ms
+Installed 4 packages in 3ms
+ + iniconfig==2.0.0
+ + packaging==24.2
+ + pluggy==1.5.0
+ + pytest==8.3.5
