@@ -20,6 +20,9 @@ on:
 jobs:
   dependency-check:
     runs-on: ubuntu-latest
+    # Add permission to allow writing to the repository
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - name: Install uv
