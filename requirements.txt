@@ -56,9 +56,9 @@ rank-bm25
 rouge-score
 bert-score
 sacrebleu
-bertopic
+# bertopic
 hdbscan
-umap-learn
+# umap-learn
 teradatasql
 mysql-connector-python
 pytesseract
