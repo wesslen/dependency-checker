@@ -73,6 +73,14 @@ jobs:
         # First try the regular install to capture bulk dependencies
         if uv pip install -r requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/install_output.txt" 2>&1; then
           echo "Bulk installation succeeded" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+          
+          # Run pip check to verify there are no conflicts
+          if uv pip check > "../${{ steps.setup_dirs.outputs.report_dir }}/check_output.txt" 2>&1; then
+            echo "Dependency check passed - No conflicts found" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+          else
+            echo "Warning: Dependency conflicts detected" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+            cat "../${{ steps.setup_dirs.outputs.report_dir }}/check_output.txt" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+          fi
         else
           echo "Bulk installation failed. Testing individual packages..." >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
           echo "pip install failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
@@ -101,7 +109,7 @@ jobs:
           done < requirements.txt
         fi
         
-        # Run pip sync and capture any errors
+        # Run pip sync to ensure environment matches requirements exactly
         if ! uv pip sync requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/sync_output.txt" 2>&1; then
           echo "pip sync failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
           ERROR_OCCURRED=true
@@ -110,9 +118,15 @@ jobs:
         
         # Only proceed with dependency analysis if the installation succeeded
         if [ "$ERROR_OCCURRED" = false ]; then
-          uv add pipdeptree
-          uv tree > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_tree_py${{ github.event.inputs.python-version }}.txt" 2>&1 || true
+          # List all installed packages in requirements format
           uv pip freeze > "../${{ steps.setup_dirs.outputs.report_dir }}/dependencies_py${{ github.event.inputs.python-version }}.txt" 2>&1 || true
+          
+          # Generate detailed package list in JSON format for further analysis
+          uv pip list --format json > "../${{ steps.setup_dirs.outputs.report_dir }}/packages_list_py${{ github.event.inputs.python-version }}.json" 2>&1 || true
+          
+          # Generate dependency tree (use --native-tls flag to handle SSL issues)
+          uv pip install pipdeptree --native-tls
+          python -m pipdeptree -j > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_tree_py${{ github.event.inputs.python-version }}.json" 2>&1 || true
         fi
         
         # Update metadata with status
