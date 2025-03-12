@@ -1,0 +1,190 @@
+# Dependency Installation Results
+Python version: 3.11
+Run timestamp: Wed Mar 12 01:38:37 UTC 2025
+
+## Installation Results
+Bulk installation failed. Testing individual packages...
+
+### Individual Package Results
+- ❌ openai-whisper
+  - See error details in individual_results/openai-whisper.txt
+- ❌ transformers
+  - See error details in individual_results/transformers.txt
+- ❌ vertexai
+  - See error details in individual_results/vertexai.txt
+- ❌ google-genai
+  - See error details in individual_results/google-genai.txt
+- ❌ google-cloud-documentai
+  - See error details in individual_results/google-cloud-documentai.txt
+- ❌ google-cloud-storage
+  - See error details in individual_results/google-cloud-storage.txt
+- ❌ llama-index
+  - See error details in individual_results/llama-index.txt
+- ❌ llama-index-llms-langchain
+  - See error details in individual_results/llama-index-llms-langchain.txt
+- ❌ llama-index-llms-openai-like
+  - See error details in individual_results/llama-index-llms-openai-like.txt
+- ❌ llama-index-multi-modal-llms-openai
+  - See error details in individual_results/llama-index-multi-modal-llms-openai.txt
+- ❌ llama-index-readers-llama-parse
+  - See error details in individual_results/llama-index-readers-llama-parse.txt
+- ❌ llama-index-readers-file
+  - See error details in individual_results/llama-index-readers-file.txt
+- ❌ llama-index-retrievers-bm25
+  - See error details in individual_results/llama-index-retrievers-bm25.txt
+- ❌ llama-index-vector-stores-elasticsearch
+  - See error details in individual_results/llama-index-vector-stores-elasticsearch.txt
+- ❌ llama-index-vector-stores-faiss
+  - See error details in individual_results/llama-index-vector-stores-faiss.txt
+- ❌ llama-index-embeddings-google
+  - See error details in individual_results/llama-index-embeddings-google.txt
+- ❌ llama-index-llms-gemini
+  - See error details in individual_results/llama-index-llms-gemini.txt
+- ❌ langchain
+  - See error details in individual_results/langchain.txt
+- ❌ langchain-community
+  - See error details in individual_results/langchain-community.txt
+- ❌ langchain-core
+  - See error details in individual_results/langchain-core.txt
+- ❌ langchain-elasticsearch
+  - See error details in individual_results/langchain-elasticsearch.txt
+- ❌ langchain-google-vertexai
+  - See error details in individual_results/langchain-google-vertexai.txt
+- ❌ langchain-google-genai
+  - See error details in individual_results/langchain-google-genai.txt
+- ❌ langchain-google-community
+  - See error details in individual_results/langchain-google-community.txt
+- ❌ langchain-text-splitters
+  - See error details in individual_results/langchain-text-splitters.txt
+- ❌ sentence-transformers
+  - See error details in individual_results/sentence-transformers.txt
+- ❌ docling
+  - See error details in individual_results/docling.txt
+- ❌ pypdf
+  - See error details in individual_results/pypdf.txt
+- ❌ pymupdf
+  - See error details in individual_results/pymupdf.txt
+- ❌ unstructured
+  - See error details in individual_results/unstructured.txt
+- ❌ openpyxl
+  - See error details in individual_results/openpyxl.txt
+- ❌ tabula-py
+  - See error details in individual_results/tabula-py.txt
+- ❌ pdfplumber
+  - See error details in individual_results/pdfplumber.txt
+- ❌ docx2python
+  - See error details in individual_results/docx2python.txt
+- ❌ pdf2image
+  - See error details in individual_results/pdf2image.txt
+- ❌ docassemble
+  - See error details in individual_results/docassemble.txt
+- ❌ pdf2json
+  - See error details in individual_results/pdf2json.txt
+- ❌ pymupdf4llm
+  - See error details in individual_results/pymupdf4llm.txt
+- ❌ pdfreader
+  - See error details in individual_results/pdfreader.txt
+- ❌ lxml
+  - See error details in individual_results/lxml.txt
+- ❌ xlrd
+  - See error details in individual_results/xlrd.txt
+- ❌ dspy-ai==2.6.5
+  - See error details in individual_results/dspy-ai==2.6.5.txt
+- ❌ instructor
+  - See error details in individual_results/instructor.txt
+- ❌ outlines==0.1.14
+  - See error details in individual_results/outlines==0.1.14.txt
+- ❌ colbert-ai
+  - See error details in individual_results/colbert-ai.txt
+- ❌ ragas
+  - See error details in individual_results/ragas.txt
+- ❌ deepeval==2.4.1
+  - See error details in individual_results/deepeval==2.4.1.txt
+- ❌ faiss-cpu
+  - See error details in individual_results/faiss-cpu.txt
+- ❌ evaluate
+  - See error details in individual_results/evaluate.txt
+- ❌ pytest
+  - See error details in individual_results/pytest.txt
+- ❌ rank-bm25
+  - See error details in individual_results/rank-bm25.txt
+- ❌ rouge-score
+  - See error details in individual_results/rouge-score.txt
+- ❌ bert-score
+  - See error details in individual_results/bert-score.txt
+- ❌ sacrebleu
+  - See error details in individual_results/sacrebleu.txt
+- ❌ bertopic
+  - See error details in individual_results/bertopic.txt
+- ❌ hdbscan
+  - See error details in individual_results/hdbscan.txt
+- ❌ umap-learn
+  - See error details in individual_results/umap-learn.txt
+- ❌ teradatasql
+  - See error details in individual_results/teradatasql.txt
+- ❌ mysql-connector-python
+  - See error details in individual_results/mysql-connector-python.txt
+- ❌ pytesseract
+  - See error details in individual_results/pytesseract.txt
+- ❌ impala
+  - See error details in individual_results/impala.txt
+- ❌ boto3
+  - See error details in individual_results/boto3.txt
+- ❌ s3fs
+  - See error details in individual_results/s3fs.txt
+- ❌ cx-oracle
+  - See error details in individual_results/cx-oracle.txt
+- ❌ dask
+  - See error details in individual_results/dask.txt
+- ❌ langgraph
+  - See error details in individual_results/langgraph.txt
+- ❌ langsmith
+  - See error details in individual_results/langsmith.txt
+- ❌ autogen
+  - See error details in individual_results/autogen.txt
+- ❌ fuzzywuzzy==0.15.1
+  - See error details in individual_results/fuzzywuzzy==0.15.1.txt
+- ❌ altair
+  - See error details in individual_results/altair.txt
+- ❌ seaborn
+  - See error details in individual_results/seaborn.txt
+- ❌ bokeh
+  - See error details in individual_results/bokeh.txt
+- ❌ spacy
+  - See error details in individual_results/spacy.txt
+- ❌ pydantic-ai
+  - See error details in individual_results/pydantic-ai.txt
+- ❌ arize-phoenix
+  - See error details in individual_results/arize-phoenix.txt
+- ❌ unsloth
+  - See error details in individual_results/unsloth.txt
+- ❌ peft
+  - See error details in individual_results/peft.txt
+- ❌ trl
+  - See error details in individual_results/trl.txt
+- ❌ accelerate
+  - See error details in individual_results/accelerate.txt
+- ❌ llama-index-finetuning
+  - See error details in individual_results/llama-index-finetuning.txt
+- ❌ impyla
+  - See error details in individual_results/impyla.txt
+- ❌ hLDA
+  - See error details in individual_results/hLDA.txt
+- ❌ tomotopy
+  - See error details in individual_results/tomotopy.txt
+- ❌ opencv-python
+  - See error details in individual_results/opencv-python.txt
+- ❌ ipywidgets
+  - See error details in individual_results/ipywidgets.txt
+- ❌ jupyterlab
+  - See error details in individual_results/jupyterlab.txt
+- ❌ jupyterlab-widgets
+  - See error details in individual_results/jupyterlab-widgets.txt
+- ❌ ipython
+  - See error details in individual_results/ipython.txt
+- ❌ jupyter-server
+  - See error details in individual_results/jupyter-server.txt
+- ❌ bitsandbytes
+  - See error details in individual_results/bitsandbytes.txt
+- ❌ communities
+  - See error details in individual_results/communities.txt
