@@ -1,0 +1,14 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 11ms
+Prepared 2 packages in 0.19ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing teradatasql...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 3ms
+Installed 2 packages in 6ms
+ + pycryptodome==3.21.0
+ + teradatasql==20.0.0.25

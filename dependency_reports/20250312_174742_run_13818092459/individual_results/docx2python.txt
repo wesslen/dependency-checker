@@ -1,0 +1,21 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 22ms
+Prepared 2 packages in 0.19ms
+Installed 2 packages in 11ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing docx2python...
+Using Python 3.10.15 environment at temp_venv
+Resolved 9 packages in 6ms
+Installed 9 packages in 5ms
+ + beautifulsoup4==4.13.3
+ + cssselect==1.3.0
+ + docx2python==3.5.0
+ + lxml==5.3.1
+ + paragraphs==1.0.1
+ + soupsieve==2.6
+ + types-html5lib==1.1.11.20241018
+ + types-lxml==2025.3.4
+ + typing-extensions==4.12.2

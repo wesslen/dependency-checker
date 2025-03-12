@@ -1,0 +1,19 @@
+Resolved 514 packages in 4.92s
+error: Failed to prepare distributions
+  Caused by: Failed to download and build `llvmlite==0.36.0`
+  Caused by: Build backend failed to determine requirements with `build_wheel()` (exit status: 1)
+
+[stderr]
+Traceback (most recent call last):
+  File "<string>", line 14, in <module>
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmptxjjgH/lib/python3.10/site-packages/setuptools/build_meta.py", line 334, in get_requires_for_build_wheel
+    return self._get_build_requires(config_settings, requirements=[])
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmptxjjgH/lib/python3.10/site-packages/setuptools/build_meta.py", line 304, in _get_build_requires
+    self.run_setup()
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmptxjjgH/lib/python3.10/site-packages/setuptools/build_meta.py", line 522, in run_setup
+    super().run_setup(setup_script=setup_script)
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmptxjjgH/lib/python3.10/site-packages/setuptools/build_meta.py", line 320, in run_setup
+    exec(code, locals())
+  File "<string>", line 55, in <module>
+  File "<string>", line 52, in _guard_py_ver
+RuntimeError: Cannot install on Python version 3.10.15; only versions >=3.6,<3.10 are supported.

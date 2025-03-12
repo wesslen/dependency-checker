@@ -1,0 +1,18 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 11ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing hdbscan...
+Using Python 3.10.15 environment at temp_venv
+Resolved 6 packages in 6ms
+Installed 6 packages in 25ms
+ + hdbscan==0.8.40
+ + joblib==1.4.2
+ + numpy==2.2.3
+ + scikit-learn==1.6.1
+ + scipy==1.15.2
+ + threadpoolctl==3.5.0

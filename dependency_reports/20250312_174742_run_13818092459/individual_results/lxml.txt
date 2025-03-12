@@ -1,0 +1,13 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 10ms
+Prepared 2 packages in 0.20ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing lxml...
+Using Python 3.10.15 environment at temp_venv
+Resolved 1 package in 5ms
+Installed 1 package in 3ms
+ + lxml==5.3.1

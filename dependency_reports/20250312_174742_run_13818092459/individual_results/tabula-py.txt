@@ -1,0 +1,20 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 10ms
+Prepared 2 packages in 0.19ms
+Installed 2 packages in 11ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing tabula-py...
+Using Python 3.10.15 environment at temp_venv
+Resolved 8 packages in 6ms
+Installed 8 packages in 47ms
+ + distro==1.9.0
+ + numpy==2.2.3
+ + pandas==2.2.3
+ + python-dateutil==2.9.0.post0
+ + pytz==2025.1
+ + six==1.17.0
+ + tabula-py==2.10.0
+ + tzdata==2025.1

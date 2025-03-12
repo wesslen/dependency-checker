@@ -1,0 +1,29 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 12ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing transformers...
+Using Python 3.10.15 environment at temp_venv
+Resolved 17 packages in 13ms
+Installed 17 packages in 63ms
+ + certifi==2025.1.31
+ + charset-normalizer==3.4.1
+ + filelock==3.17.0
+ + fsspec==2025.3.0
+ + huggingface-hub==0.29.3
+ + idna==3.10
+ + numpy==2.2.3
+ + packaging==24.2
+ + pyyaml==6.0.2
+ + regex==2024.11.6
+ + requests==2.32.3
+ + safetensors==0.5.3
+ + tokenizers==0.21.0
+ + tqdm==4.67.1
+ + transformers==4.49.0
+ + typing-extensions==4.12.2
+ + urllib3==2.3.0

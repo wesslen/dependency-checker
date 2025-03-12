@@ -1,0 +1,13 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 10ms
+Prepared 2 packages in 0.20ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing fuzzywuzzy==0.15.1...
+Using Python 3.10.15 environment at temp_venv
+Resolved 1 package in 0.88ms
+Installed 1 package in 0.73ms
+ + fuzzywuzzy==0.15.1
