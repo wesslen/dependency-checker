@@ -116,7 +116,11 @@ jobs:
         fi
         
         # Update metadata with status
-        if [ -f "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt" ]; t
+        if [ -f "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt" ]; then
+          echo "Status: FAILED" >> "../${{ steps.setup_dirs.outputs.report_dir }}/metadata.txt"
+        else
+          echo "Status: SUCCESS" >> "../${{ steps.setup_dirs.outputs.report_dir }}/metadata.txt"
+        fi
     
     - name: Commit dependency report
       run: |
