@@ -1,0 +1,31 @@
+Installing prerequisite packages...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 23ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing langsmith...
+Using Python 3.11.10 environment at temp_venv
+Resolved 19 packages in 21ms
+Installed 19 packages in 7ms
+ + annotated-types==0.7.0
+ + anyio==4.8.0
+ + certifi==2025.1.31
+ + charset-normalizer==3.4.1
+ + h11==0.14.0
+ + httpcore==1.0.7
+ + httpx==0.28.1
+ + idna==3.10
+ + langsmith==0.3.13
+ + orjson==3.10.15
+ + packaging==24.2
+ + pydantic==2.10.6
+ + pydantic-core==2.27.2
+ + requests==2.32.3
+ + requests-toolbelt==1.0.0
+ + sniffio==1.3.1
+ + typing-extensions==4.12.2
+ + urllib3==2.3.0
+ + zstandard==0.23.0

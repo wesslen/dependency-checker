@@ -1,0 +1,15 @@
+Installing prerequisite packages...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 23ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 9ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing opencv-python...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 5ms
+Prepared 1 package in 609ms
+Installed 2 packages in 18ms
+ + numpy==2.2.3
+ + opencv-python==4.11.0.86

@@ -1,0 +1,15 @@
+Installing prerequisite packages...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 23ms
+Prepared 2 packages in 0.20ms
+Installed 2 packages in 9ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing tomotopy...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 5ms
+Prepared 1 package in 186ms
+Installed 2 packages in 17ms
+ + numpy==1.26.4
+ + tomotopy==0.13.0

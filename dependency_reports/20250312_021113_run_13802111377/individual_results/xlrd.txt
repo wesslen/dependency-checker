@@ -1,0 +1,13 @@
+Installing prerequisite packages...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 28ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing xlrd...
+Using Python 3.11.10 environment at temp_venv
+Resolved 1 package in 0.84ms
+Installed 1 package in 0.98ms
+ + xlrd==2.0.1

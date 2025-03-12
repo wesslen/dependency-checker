@@ -1,0 +1,29 @@
+Installing prerequisite packages...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 23ms
+Prepared 2 packages in 0.19ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing google-cloud-documentai...
+Using Python 3.11.10 environment at temp_venv
+Resolved 17 packages in 10ms
+Installed 17 packages in 9ms
+ + cachetools==5.5.2
+ + certifi==2025.1.31
+ + charset-normalizer==3.4.1
+ + google-api-core==2.24.2
+ + google-auth==2.38.0
+ + google-cloud-documentai==3.2.0
+ + googleapis-common-protos==1.69.1
+ + grpcio==1.71.0
+ + grpcio-status==1.71.0
+ + idna==3.10
+ + proto-plus==1.26.1
+ + protobuf==5.29.3
+ + pyasn1==0.6.1
+ + pyasn1-modules==0.4.1
+ + requests==2.32.3
+ + rsa==4.9
+ + urllib3==2.3.0

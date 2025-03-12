@@ -1,0 +1,19 @@
+Installing prerequisite packages...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 22ms
+Prepared 2 packages in 0.20ms
+Installed 2 packages in 9ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing pdfreader...
+Using Python 3.11.10 environment at temp_venv
+Resolved 6 packages in 5ms
+Prepared 1 package in 52ms
+Installed 6 packages in 7ms
+ + bitarray==3.1.1
+ + pdfreader==0.1.15
+ + pillow==11.1.0
+ + pycryptodome==3.21.0
+ + python-dateutil==2.9.0.post0
+ + six==1.17.0

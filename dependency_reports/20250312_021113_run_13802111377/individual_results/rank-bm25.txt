@@ -1,0 +1,14 @@
+Installing prerequisite packages...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 24ms
+Prepared 2 packages in 0.19ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing rank-bm25...
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 4ms
+Installed 2 packages in 18ms
+ + numpy==2.2.3
+ + rank-bm25==0.2.2
