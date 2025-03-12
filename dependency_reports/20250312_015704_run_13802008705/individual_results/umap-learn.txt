@@ -1,0 +1,29 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 13ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing umap-learn...
+Using Python 3.10.15 environment at temp_venv
+Resolved 11 packages in 10ms
+error: Failed to prepare distributions
+  Caused by: Failed to download and build `numba==0.53.1`
+  Caused by: Build backend failed to determine requirements with `build_wheel()` (exit status: 1)
+
+[stderr]
+Traceback (most recent call last):
+  File "<string>", line 14, in <module>
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmpuL0pei/lib/python3.10/site-packages/setuptools/build_meta.py", line 334, in get_requires_for_build_wheel
+    return self._get_build_requires(config_settings, requirements=[])
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmpuL0pei/lib/python3.10/site-packages/setuptools/build_meta.py", line 304, in _get_build_requires
+    self.run_setup()
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmpuL0pei/lib/python3.10/site-packages/setuptools/build_meta.py", line 522, in run_setup
+    super().run_setup(setup_script=setup_script)
+  File "/home/runner/work/_temp/setup-uv-cache/builds-v0/.tmpuL0pei/lib/python3.10/site-packages/setuptools/build_meta.py", line 320, in run_setup
+    exec(code, locals())
+  File "<string>", line 50, in <module>
+  File "<string>", line 47, in _guard_py_ver
+RuntimeError: Cannot install on Python version 3.10.15; only versions >=3.6,<3.10 are supported.

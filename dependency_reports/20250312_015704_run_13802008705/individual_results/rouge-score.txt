@@ -1,0 +1,21 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 20ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing rouge-score...
+Using Python 3.10.15 environment at temp_venv
+Resolved 9 packages in 7ms
+Installed 9 packages in 19ms
+ + absl-py==2.1.0
+ + click==8.1.8
+ + joblib==1.4.2
+ + nltk==3.9.1
+ + numpy==2.2.3
+ + regex==2024.11.6
+ + rouge-score==0.1.2
+ + six==1.17.0
+ + tqdm==4.67.1

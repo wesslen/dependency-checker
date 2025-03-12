@@ -1,0 +1,15 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 11ms
+Prepared 2 packages in 0.21ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing opencv-python...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 6ms
+Prepared 1 package in 553ms
+Installed 2 packages in 20ms
+ + numpy==2.2.3
+ + opencv-python==4.11.0.86

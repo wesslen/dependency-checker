@@ -1,0 +1,14 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 9ms
+Prepared 2 packages in 0.18ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing pymupdf4llm...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 3ms
+Installed 2 packages in 4ms
+ + pymupdf==1.25.3
+ + pymupdf4llm==0.0.17

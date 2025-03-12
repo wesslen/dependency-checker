@@ -1,0 +1,16 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 11ms
+Prepared 2 packages in 0.20ms
+Installed 2 packages in 11ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing faiss-cpu...
+Using Python 3.10.15 environment at temp_venv
+Resolved 3 packages in 5ms
+Prepared 1 package in 347ms
+Installed 3 packages in 18ms
+ + faiss-cpu==1.10.0
+ + numpy==2.2.3
+ + packaging==24.2

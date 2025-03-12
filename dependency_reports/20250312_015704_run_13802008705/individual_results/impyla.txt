@@ -1,0 +1,19 @@
+Installing prerequisite packages...
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 13ms
+Prepared 2 packages in 0.17ms
+Installed 2 packages in 10ms
+ + setuptools==76.0.0
+ + wheel==0.45.1
+setuptools 76.0.0 installed successfully
+Installing impyla...
+Using Python 3.10.15 environment at temp_venv
+Resolved 6 packages in 4ms
+Prepared 1 package in 690ms
+Installed 6 packages in 2ms
+ + bitarray==2.9.3
+ + impyla==0.20.0
+ + pure-sasl==0.6.2
+ + six==1.17.0
+ + thrift==0.16.0
+ + thrift-sasl==0.4.3
