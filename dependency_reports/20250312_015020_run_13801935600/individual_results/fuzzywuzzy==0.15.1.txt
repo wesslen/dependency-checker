@@ -1,0 +1,4 @@
+Using Python 3.10.15 environment at temp_venv
+Resolved 1 package in 0.83ms
+Installed 1 package in 0.66ms
+ + fuzzywuzzy==0.15.1

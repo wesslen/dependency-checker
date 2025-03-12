@@ -1,0 +1,4 @@
+Using Python 3.10.15 environment at temp_venv
+Resolved 1 package in 1ms
+Installed 1 package in 0.54ms
+ + impala==0.2

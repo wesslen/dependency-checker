@@ -1,0 +1,10 @@
+Using Python 3.10.15 environment at temp_venv
+Resolved 6 packages in 5ms
+Prepared 1 package in 38ms
+Installed 6 packages in 6ms
+ + bitarray==3.1.1
+ + pdfreader==0.1.15
+ + pillow==11.1.0
+ + pycryptodome==3.21.0
+ + python-dateutil==2.9.0.post0
+ + six==1.17.0

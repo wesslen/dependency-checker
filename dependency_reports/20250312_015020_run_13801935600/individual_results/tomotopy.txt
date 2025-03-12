@@ -1,0 +1,6 @@
+Using Python 3.10.15 environment at temp_venv
+Resolved 2 packages in 5ms
+Prepared 1 package in 187ms
+Installed 2 packages in 17ms
+ + numpy==1.26.4
+ + tomotopy==0.13.0

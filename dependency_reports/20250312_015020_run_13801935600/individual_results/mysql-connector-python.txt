@@ -1,0 +1,5 @@
+Using Python 3.10.15 environment at temp_venv
+Resolved 1 package in 1ms
+Prepared 1 package in 438ms
+Installed 1 package in 2ms
+ + mysql-connector-python==9.2.0
