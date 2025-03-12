@@ -90,7 +90,7 @@ jobs:
             
             echo "Testing package: $req"
             rm -rf temp_venv || true
-            uv venv --path temp_venv
+            uv venv temp_venv
             
             if temp_venv/bin/uv pip install "$req" > "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
               echo "- ✅ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
