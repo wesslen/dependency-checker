@@ -26,8 +26,10 @@ jobs:
       uses: astral-sh/setup-uv@v3
       with:
         version: "0.4.27"
+        
     - name: Set up Python
       run: uv python install ${{ github.event.inputs.python-version }}
+      
     - name: Install and check dependencies
       run: |
         uv init example -p ${{ github.event.inputs.python-version }}
@@ -40,6 +42,33 @@ jobs:
         uv add pipdeptree
         uv tree
         uv pip freeze
+
+    - name: Save dependency details
+      run: |
+        # Create a timestamp for the folder name
+        TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+        RUN_ID="${TIMESTAMP}_run_${{ github.run_id }}"
+        
+        # Create the dependencies directory if it doesn't exist
+        mkdir -p dependency_reports/$RUN_ID
+        
+        # Save detailed dependencies to file
+        cd example
+        uv pip freeze > ../dependency_reports/$RUN_ID/dependencies_py${{ github.event.inputs.python-version }}.txt
+        uv tree --json > ../dependency_reports/$RUN_ID/dependency_tree_py${{ github.event.inputs.python-version }}.json
+        
+        # Also save Python version for reference
+        echo "Python version: ${{ github.event.inputs.python-version }}" > ../dependency_reports/$RUN_ID/metadata.txt
+        echo "Run timestamp: $(date)" >> ../dependency_reports/$RUN_ID/metadata.txt
+        echo "Workflow run ID: ${{ github.run_id }}" >> ../dependency_reports/$RUN_ID/metadata.txt
+    
+    - name: Commit dependency report
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add dependency_reports/
+        git commit -m "Add dependency report for Python ${{ github.event.inputs.python-version }} (Run ID: ${{ github.run_id }})" || echo "No changes to commit"
+        git push
     # - name: Run tests
     #   run: |
     #     uv pip install pytest
