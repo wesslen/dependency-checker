@@ -43,7 +43,7 @@ pymupdf4llm
 pdfreader
 lxml
 xlrd
-dspy-ai==2.6.5
+dspy-ai==2.6.8
 instructor
 outlines==0.1.14
 colbert-ai
@@ -106,5 +106,5 @@ ipython
 jupyter-server
 bitsandbytes
 # risotto
-communities
+# communities
 # pypdf_table_extraction
