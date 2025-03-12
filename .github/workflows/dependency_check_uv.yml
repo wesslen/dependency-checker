@@ -55,20 +55,25 @@ jobs:
         uv venv
         uv pip install setuptools
         
+        # Flag to track errors within this shell context
+        ERROR_OCCURRED=false
+        
         # Run pip sync and capture any errors
         uv pip sync requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/sync_output.txt" 2>&1 || {
           echo "pip sync failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
+          ERROR_OCCURRED=true
           echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
         }
         
         # Run pip install and capture any errors
         uv pip install -r requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/install_output.txt" 2>&1 || {
           echo "pip install failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
+          ERROR_OCCURRED=true
           echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
         }
         
         # Only proceed with these if the installation succeeded
-        if [ -z "${ERROR_OCCURRED}" ]; then
+        if [ "$ERROR_OCCURRED" = false ]; then
           uv add pipdeptree
           uv tree > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_tree_py${{ github.event.inputs.python-version }}.txt" 2>&1 || {
             echo "uv tree failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
