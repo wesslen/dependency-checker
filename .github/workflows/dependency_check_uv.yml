@@ -55,7 +55,7 @@ jobs:
         # Save detailed dependencies to file
         cd example
         uv pip freeze > ../dependency_reports/$RUN_ID/dependencies_py${{ github.event.inputs.python-version }}.txt
-        uv tree --json > ../dependency_reports/$RUN_ID/dependency_tree_py${{ github.event.inputs.python-version }}.json
+        uv tree > ../dependency_reports/$RUN_ID/dependency_tree_py${{ github.event.inputs.python-version }}.txt
         
         # Also save Python version for reference
         echo "Python version: ${{ github.event.inputs.python-version }}" > ../dependency_reports/$RUN_ID/metadata.txt
@@ -69,7 +69,3 @@ jobs:
         git add dependency_reports/
         git commit -m "Add dependency report for Python ${{ github.event.inputs.python-version }} (Run ID: ${{ github.run_id }})" || echo "No changes to commit"
         git push
-    # - name: Run tests
-    #   run: |
-    #     uv pip install pytest
-    #     pytest
