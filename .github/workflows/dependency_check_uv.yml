@@ -58,39 +58,39 @@ jobs:
         # Flag to track errors within this shell context
         ERROR_OCCURRED=false
         
-        # Run pip sync and capture any errors
-        uv pip sync requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/sync_output.txt" 2>&1 || {
-          echo "pip sync failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
-          ERROR_OCCURRED=true
-          echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
-        }
+        # Process requirements individually to identify problematic dependencies
+        mkdir -p "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results"
+        echo "# Dependency Installation Results" > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+        echo "Python version: ${{ github.event.inputs.python-version }}" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+        echo "Run timestamp: $(date)" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+        echo "" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+        echo "## Individual Package Results" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
         
-        # Run pip install and capture any errors
+        # First try the regular install to capture bulk dependencies
         uv pip install -r requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/install_output.txt" 2>&1 || {
           echo "pip install failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
           ERROR_OCCURRED=true
           echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
-        }
-        
-        # Only proceed with these if the installation succeeded
-        if [ "$ERROR_OCCURRED" = false ]; then
-          uv add pipdeptree
-          uv tree > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_tree_py${{ github.event.inputs.python-version }}.txt" 2>&1 || {
-            echo "uv tree failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
-          }
-          uv pip freeze > "../${{ steps.setup_dirs.outputs.report_dir }}/dependencies_py${{ github.event.inputs.python-version }}.txt" 2>&1 || {
-            echo "pip freeze failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
-          }
-        fi
-        
-        # Update metadata with status
-        if [ -f "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt" ]; then
-          echo "Status: FAILED" >> "../${{ steps.setup_dirs.outputs.report_dir }}/metadata.txt"
-          cat "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt" >> "../${{ steps.setup_dirs.outputs.report_dir }}/metadata.txt"
-        else
-          echo "Status: SUCCESS" >> "../${{ steps.setup_dirs.outputs.report_dir }}/metadata.txt"
-        fi
-      continue-on-error: true
+          
+          # Identify problematic packages by installing each one individually
+          echo "### Failed Packages" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+          while IFS= read -r req || [[ -n "$req" ]]; do
+            # Skip comments and empty lines
+            [[ "$req" =~ ^[[:space:]]*# ]] && continue
+            [[ -z "$req" ]] && continue
+            
+            echo "Testing package: $req"
+            # Create a clean temporary virtual environment for each package
+            rm -rf temp_venv || true
+            uv venv --path temp_venv
+            
+            # Try to install the single package
+            if temp_venv/bin/uv pip install "$req" > "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
+              echo "✅ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+            else
+              echo "❌ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+              echo "```" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+              cat "..
     
     - name: Commit dependency report
       run: |
