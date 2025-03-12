@@ -54,8 +54,8 @@ jobs:
         
         # Save detailed dependencies to file
         cd example
+        uv pip check
         uv pip freeze > ../dependency_reports/$RUN_ID/dependencies_py${{ github.event.inputs.python-version }}.txt
-        uv tree --json > ../dependency_reports/$RUN_ID/dependency_tree_py${{ github.event.inputs.python-version }}.json
         
         # Also save Python version for reference
         echo "Python version: ${{ github.event.inputs.python-version }}" > ../dependency_reports/$RUN_ID/metadata.txt
