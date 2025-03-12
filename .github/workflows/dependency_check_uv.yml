@@ -58,37 +58,65 @@ jobs:
         # Flag to track errors within this shell context
         ERROR_OCCURRED=false
         
-        # Process requirements individually to identify problematic dependencies
+        # Create directory for detailed reports
         mkdir -p "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results"
-        echo "# Dependency Installation Results" > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-        echo "Python version: ${{ github.event.inputs.python-version }}" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-        echo "Run timestamp: $(date)" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-        echo "" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-        echo "## Individual Package Results" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+        
+        # Create initial report file
+        cat > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md" << EOL
+        # Dependency Installation Results
+        Python version: ${{ github.event.inputs.python-version }}
+        Run timestamp: $(date)
+        
+        ## Installation Results
+        EOL
         
         # First try the regular install to capture bulk dependencies
-        uv pip install -r requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/install_output.txt" 2>&1 || {
+        if uv pip install -r requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/install_output.txt" 2>&1; then
+          echo "Bulk installation succeeded" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+        else
+          echo "Bulk installation failed. Testing individual packages..." >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
           echo "pip install failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
           ERROR_OCCURRED=true
           echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
           
-          # Identify problematic packages by installing each one individually
-          echo "### Failed Packages" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+          # Test each package individually
+          echo -e "\n### Individual Package Results" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+          
           while IFS= read -r req || [[ -n "$req" ]]; do
             # Skip comments and empty lines
-            [[ "$req" =~ ^[[:space:]]*# ]] && continue
-            [[ -z "$req" ]] && continue
+            if [[ "$req" =~ ^[[:space:]]*# ]] || [[ -z "$req" ]]; then
+              continue
+            fi
             
             echo "Testing package: $req"
-            # Create a clean temporary virtual environment for each package
             rm -rf temp_venv || true
             uv venv --path temp_venv
             
-            # Try to install the single package
             if temp_venv/bin/uv pip install "$req" > "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
-              echo "✅ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+              echo "- ✅ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
             else
-              echo "❌
+              echo "- ❌ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+              echo "  - See error details in individual_results/${req// /_}.txt" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
+            fi
+          done < requirements.txt
+        fi
+        
+        # Run pip sync and capture any errors
+        if ! uv pip sync requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/sync_output.txt" 2>&1; then
+          echo "pip sync failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
+          ERROR_OCCURRED=true
+          echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
+        fi
+        
+        # Only proceed with dependency analysis if the installation succeeded
+        if [ "$ERROR_OCCURRED" = false ]; then
+          uv add pipdeptree
+          uv tree > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_tree_py${{ github.event.inputs.python-version }}.txt" 2>&1 || true
+          uv pip freeze > "../${{ steps.setup_dirs.outputs.report_dir }}/dependencies_py${{ github.event.inputs.python-version }}.txt" 2>&1 || true
+        fi
+        
+        # Update metadata with status
+        if [ -f "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt" ]; t
     
     - name: Commit dependency report
       run: |
