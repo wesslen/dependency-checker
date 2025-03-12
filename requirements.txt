@@ -56,9 +56,9 @@ rank-bm25
 rouge-score
 bert-score
 sacrebleu
-# bertopic
+bertopic
 hdbscan
-# umap-learn
+umap-learn
 teradatasql
 mysql-connector-python
 pytesseract
@@ -71,11 +71,6 @@ langgraph
 langsmith
 autogen
 fuzzywuzzy==0.15.1
-# conda-pack
-# credentials
-# deap
-# lightgbm
-# pygad
 altair
 seaborn
 bokeh
@@ -104,7 +99,7 @@ jupyterlab
 jupyterlab-widgets
 ipython
 jupyter-server
-# bitsandbytes
+bitsandbytes
 # risotto
 # communities
 # pypdf_table_extraction
