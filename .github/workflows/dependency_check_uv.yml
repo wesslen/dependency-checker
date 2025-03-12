@@ -1,4 +1,5 @@
 name: Manual (uv) Dependency Check
+
 on:
   workflow_dispatch:
     inputs:
@@ -15,153 +16,60 @@ on:
         - '3.11'
         - '3.12'
         - '3.12.4'
+
 jobs:
   dependency-check:
     runs-on: ubuntu-latest
-    # Add permission to allow writing to the repository
-    permissions:
-      contents: write
     steps:
     - uses: actions/checkout@v4
     - name: Install uv
       uses: astral-sh/setup-uv@v3
       with:
         version: "0.4.27"
+        
     - name: Set up Python
       run: uv python install ${{ github.event.inputs.python-version }}
-    
-    - name: Create timestamp and directory for reports
-      id: setup_dirs
-      run: |
-        # Create a timestamp for the folder name
-        TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-        RUN_ID="${TIMESTAMP}_run_${{ github.run_id }}"
-        echo "report_dir=dependency_reports/$RUN_ID" >> $GITHUB_OUTPUT
-        
-        # Create the dependencies directory
-        mkdir -p dependency_reports/$RUN_ID
-        
-        # Save initial metadata
-        echo "Python version: ${{ github.event.inputs.python-version }}" > dependency_reports/$RUN_ID/metadata.txt
-        echo "Run timestamp: $(date)" >> dependency_reports/$RUN_ID/metadata.txt
-        echo "Workflow run ID: ${{ github.run_id }}" >> dependency_reports/$RUN_ID/metadata.txt
-    
+      
     - name: Install and check dependencies
-      id: install_deps
       run: |
         uv init example -p ${{ github.event.inputs.python-version }}
         cp requirements.txt example/requirements.txt
         cd example
         uv venv
         uv pip install setuptools
+        uv pip sync requirements.txt
+        uv pip install -r requirements.txt
+        uv add pipdeptree
+        uv tree
+        uv pip freeze
+
+    - name: Save dependency details
+      run: |
+        # Create a timestamp for the folder name
+        TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+        RUN_ID="${TIMESTAMP}_run_${{ github.run_id }}"
         
-        # Flag to track errors within this shell context
-        ERROR_OCCURRED=false
+        # Create the dependencies directory if it doesn't exist
+        mkdir -p dependency_reports/$RUN_ID
         
-        # Create directory for detailed reports
-        mkdir -p "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results"
+        # Save detailed dependencies to file
+        cd example
+        uv pip freeze > ../dependency_reports/$RUN_ID/dependencies_py${{ github.event.inputs.python-version }}.txt
+        uv tree --json > ../dependency_reports/$RUN_ID/dependency_tree_py${{ github.event.inputs.python-version }}.json
         
-        # Create initial report file
-        cat > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md" << EOL
-        # Dependency Installation Results
-        Python version: ${{ github.event.inputs.python-version }}
-        Run timestamp: $(date)
-        
-        ## Installation Results
-        EOL
-        
-        # First try the regular install to capture bulk dependencies
-        if uv pip install -r requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/install_output.txt" 2>&1; then
-          echo "Bulk installation succeeded" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-          
-          # Run pip check to verify there are no conflicts
-          if uv pip check > "../${{ steps.setup_dirs.outputs.report_dir }}/check_output.txt" 2>&1; then
-            echo "Dependency check passed - No conflicts found" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-          else
-            echo "Warning: Dependency conflicts detected" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-            cat "../${{ steps.setup_dirs.outputs.report_dir }}/check_output.txt" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-          fi
-        else
-          echo "Bulk installation failed. Testing individual packages..." >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-          echo "pip install failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
-          ERROR_OCCURRED=true
-          echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
-          
-          # Test each package individually
-          echo -e "\n### Individual Package Results" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-          
-          while IFS= read -r req || [[ -n "$req" ]]; do
-            # Skip comments and empty lines
-            if [[ "$req" =~ ^[[:space:]]*# ]] || [[ -z "$req" ]]; then
-              continue
-            fi
-            
-            echo "Testing package: $req"
-            rm -rf temp_venv || true
-            uv venv temp_venv
-            
-            # Install setuptools and wheel first in the temporary venv, with robust error checking
-            echo "Installing prerequisite packages..." >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
-            if ! uv pip install --python temp_venv/bin/python setuptools wheel --upgrade >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
-              echo "Warning: Failed to install setuptools/wheel" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
-            fi
-            
-            # Verify setuptools is available by running a simple setuptools command
-            if ! temp_venv/bin/python -c "import setuptools; print(f'setuptools {setuptools.__version__} installed successfully')" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
-              echo "Warning: setuptools verification failed" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
-            fi
-            
-            # Small delay to ensure everything is initialized
-            sleep 1
-            
-            # Now install the package
-            echo "Installing $req..." >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
-            if uv pip install --python temp_venv/bin/python "$req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
-              echo "- ✅ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-            else
-              echo "- ❌ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-              echo "  - See error details in individual_results/${req// /_}.txt" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-            fi
-          done < requirements.txt
-        fi
-        
-        # Run pip sync to ensure environment matches requirements exactly
-        if ! uv pip sync requirements.txt > "../${{ steps.setup_dirs.outputs.report_dir }}/sync_output.txt" 2>&1; then
-          echo "pip sync failed with status $?" >> "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt"
-          ERROR_OCCURRED=true
-          echo "ERROR_OCCURRED=true" >> $GITHUB_OUTPUT
-        fi
-        
-        # Only proceed with dependency analysis if the installation succeeded
-        if [ "$ERROR_OCCURRED" = false ]; then
-          # List all installed packages in requirements format
-          uv pip freeze > "../${{ steps.setup_dirs.outputs.report_dir }}/dependencies_py${{ github.event.inputs.python-version }}.txt" 2>&1 || true
-          
-          # Generate detailed package list in JSON format for further analysis
-          uv pip list --format json > "../${{ steps.setup_dirs.outputs.report_dir }}/packages_list_py${{ github.event.inputs.python-version }}.json" 2>&1 || true
-          
-          # Generate dependency tree (use --native-tls flag to handle SSL issues)
-          uv pip install pipdeptree --native-tls
-          python -m pipdeptree -j > "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_tree_py${{ github.event.inputs.python-version }}.json" 2>&1 || true
-        fi
-        
-        # Update metadata with status
-        if [ -f "../${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt" ]; then
-          echo "Status: FAILED" >> "../${{ steps.setup_dirs.outputs.report_dir }}/metadata.txt"
-        else
-          echo "Status: SUCCESS" >> "../${{ steps.setup_dirs.outputs.report_dir }}/metadata.txt"
-        fi
+        # Also save Python version for reference
+        echo "Python version: ${{ github.event.inputs.python-version }}" > ../dependency_reports/$RUN_ID/metadata.txt
+        echo "Run timestamp: $(date)" >> ../dependency_reports/$RUN_ID/metadata.txt
+        echo "Workflow run ID: ${{ github.run_id }}" >> ../dependency_reports/$RUN_ID/metadata.txt
     
     - name: Commit dependency report
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add dependency_reports/
-        
-        if [ -f "${{ steps.setup_dirs.outputs.report_dir }}/error_log.txt" ]; then
-          git commit -m "Add dependency report for Python ${{ github.event.inputs.python-version }} (Run ID: ${{ github.run_id }}) - FAILED" || echo "No changes to commit"
-        else
-          git commit -m "Add dependency report for Python ${{ github.event.inputs.python-version }} (Run ID: ${{ github.run_id }}) - SUCCESS" || echo "No changes to commit"
-        fi
-        
+        git commit -m "Add dependency report for Python ${{ github.event.inputs.python-version }} (Run ID: ${{ github.run_id }})" || echo "No changes to commit"
         git push
+    # - name: Run tests
+    #   run: |
+    #     uv pip install pytest
+    #     pytest
