@@ -1,0 +1,4 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 1 package in 0.87ms
+Installed 1 package in 1ms
+ + xlrd==2.0.1

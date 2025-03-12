@@ -1,0 +1,6 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 3ms
+Prepared 1 package in 257ms
+Installed 2 packages in 6ms
+ + pycryptodome==3.21.0
+ + teradatasql==20.0.0.25

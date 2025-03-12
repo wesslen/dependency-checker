@@ -1,0 +1,28 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 25 packages in 25ms
+Installed 25 packages in 16ms
+ + aiohappyeyeballs==2.6.1
+ + aiohttp==3.11.13
+ + aiosignal==1.3.2
+ + algoliasearch==4.14.0
+ + annotated-types==0.7.0
+ + async-timeout==5.0.1
+ + attrs==25.1.0
+ + beautifulsoup4==4.13.3
+ + certifi==2025.1.31
+ + charset-normalizer==3.4.1
+ + frozenlist==1.5.0
+ + idna==3.10
+ + multidict==6.1.0
+ + pdf2json==0.3
+ + propcache==0.3.0
+ + pydantic==2.10.6
+ + pydantic-core==2.27.2
+ + pypdf2==3.0.1
+ + python-dateutil==2.9.0.post0
+ + requests==2.32.3
+ + six==1.17.0
+ + soupsieve==2.6
+ + typing-extensions==4.12.2
+ + urllib3==2.3.0
+ + yarl==1.18.3

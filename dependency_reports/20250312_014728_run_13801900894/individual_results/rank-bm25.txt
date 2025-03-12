@@ -1,0 +1,5 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 2 packages in 6ms
+Installed 2 packages in 36ms
+ + numpy==2.2.3
+ + rank-bm25==0.2.2

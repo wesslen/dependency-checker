@@ -1,0 +1,10 @@
+Using Python 3.11.10 environment at temp_venv
+Resolved 6 packages in 4ms
+Prepared 2 packages in 705ms
+Installed 6 packages in 2ms
+ + bitarray==2.9.3
+ + impyla==0.20.0
+ + pure-sasl==0.6.2
+ + six==1.17.0
+ + thrift==0.16.0
+ + thrift-sasl==0.4.3
