@@ -88,9 +88,7 @@ jobs:
             if temp_venv/bin/uv pip install "$req" > "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
               echo "✅ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
             else
-              echo "❌ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-              echo "```" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
-              cat "..
+              echo "❌
     
     - name: Commit dependency report
       run: |
