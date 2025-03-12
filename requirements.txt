@@ -93,7 +93,7 @@ impyla
 # pytorchltr
 # hLDA
 # tomotopy
-opencv-python
+# opencv-python # can't build for python 3.10
 ipywidgets
 jupyterlab
 jupyterlab-widgets
