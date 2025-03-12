@@ -1,0 +1,5 @@
+Resolved 4 packages in 0.69ms
+example v0.1.0
+└── pipdeptree v2.25.1
+    ├── packaging v24.2
+    └── pip v25.0.1
