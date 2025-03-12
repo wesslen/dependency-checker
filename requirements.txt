@@ -82,7 +82,7 @@ arize-phoenix
 # openinference-instrumentation-vertexai
 # openinference-instrumentation-dspy
 # openinference-instrumentation-llama-index
-semchunk
+# semchunk
 chromadb
 unsloth
 peft
@@ -93,7 +93,7 @@ impyla
 # pytorchltr
 # hLDA
 # tomotopy
-# opencv-python # can't build for python 3.10
+# opencv-python 
 ipywidgets
 jupyterlab
 jupyterlab-widgets
