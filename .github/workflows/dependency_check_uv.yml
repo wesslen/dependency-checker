@@ -100,11 +100,23 @@ jobs:
             rm -rf temp_venv || true
             uv venv temp_venv
             
-            # Install setuptools first in the temporary venv
-            uv pip install --python temp_venv/bin/python setuptools > /dev/null 2>&1
+            # Install setuptools and wheel first in the temporary venv, with robust error checking
+            echo "Installing prerequisite packages..." >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
+            if ! uv pip install --python temp_venv/bin/python setuptools wheel --upgrade >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
+              echo "Warning: Failed to install setuptools/wheel" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
+            fi
+            
+            # Verify setuptools is available by running a simple setuptools command
+            if ! temp_venv/bin/python -c "import setuptools; print(f'setuptools {setuptools.__version__} installed successfully')" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
+              echo "Warning: setuptools verification failed" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
+            fi
+            
+            # Small delay to ensure everything is initialized
+            sleep 1
             
             # Now install the package
-            if uv pip install --python temp_venv/bin/python "$req" > "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
+            echo "Installing $req..." >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt"
+            if uv pip install --python temp_venv/bin/python "$req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/individual_results/${req// /_}.txt" 2>&1; then
               echo "- ✅ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
             else
               echo "- ❌ $req" >> "../${{ steps.setup_dirs.outputs.report_dir }}/dependency_issues.md"
