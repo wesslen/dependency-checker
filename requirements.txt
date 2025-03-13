@@ -75,7 +75,7 @@ fuzzywuzzy==0.15.1
 altair
 seaborn
 bokeh
-spacy
+# spacy
 # stanfordnlp
 # tpot
 pydantic-ai
@@ -85,17 +85,17 @@ arize-phoenix
 # openinference-instrumentation-llama-index
 # semchunk
 # chromadb
-unsloth
-peft
-trl
-accelerate
-llama-index-finetuning
-impyla
+# unsloth
+# peft
+# trl
+# accelerate
+# llama-index-finetuning
+# impyla
 # pytorchltr
 # hLDA
 # tomotopy
 # opencv-python 
-ipywidgets
+# ipywidgets
 jupyterlab
 jupyterlab-widgets
 ipython
