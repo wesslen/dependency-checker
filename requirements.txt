@@ -95,12 +95,12 @@ llama-index-finetuning
 # openinference-instrumentation-llama-index
 opencv-python 
 bitsandbytes
-# pypdf_table_extraction
-# hLDA
-# tomotopy
-# risotto
-# communities
-# spacy
+pypdf_table_extraction
+hLDA
+tomotopy
+risotto
+communities
+spacy
+pytorchltr
 # stanfordnlp
 # tpot
-# pytorchltr
