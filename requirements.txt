@@ -43,8 +43,8 @@ pymupdf
 # pymupdf4llm
 # pdfreader
 # lxml
-# xlrd
-# dspy-ai~=2.6.8
+xlrd
+dspy-ai~=2.6.8
 instructor
 outlines~=0.1.14
 # colbert-ai
@@ -78,8 +78,8 @@ pytest
 # spacy
 # stanfordnlp
 # tpot
-# pydantic-ai
-# arize-phoenix
+pydantic-ai
+arize-phoenix
 # openinference-instrumentation-vertexai
 # openinference-instrumentation-dspy
 # openinference-instrumentation-llama-index
@@ -95,7 +95,7 @@ pytest
 # hLDA
 # tomotopy
 # opencv-python 
-# ipywidgets
+ipywidgets
 jupyterlab
 jupyterlab-widgets
 ipython
