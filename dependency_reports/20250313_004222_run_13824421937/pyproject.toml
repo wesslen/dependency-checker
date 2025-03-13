@@ -1,0 +1,16 @@
+[project]
+name = "dependency-check"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "openai-whisper",
+    "transformers",
+    "vertexai",
+    "google-genai",
+    "google-cloud-documentai",
+    "google-cloud-storage",
+    "jupyterlab",
+    "jupyterlab-widgets",
+    "ipython",
+    "jupyter-server",
+]
