@@ -1,0 +1,102 @@
+name: Enhanced (uv) Dependency Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: 'Python version'
+        required: true
+        default: '3.12.4'
+        type: choice
+        options:
+        - '3.7'
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - '3.12'
+        - '3.12.4'
+      check-upgrades:
+        description: 'Check for potential package upgrades'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: "0.4.27"
+        
+    - name: Set up Python
+      run: uv python install ${{ github.event.inputs.python-version }}
+      
+    - name: Create timestamp
+      id: timestamp
+      run: echo "RUN_ID=$(date +"%Y%m%d_%H%M%S")_run_${{ github.run_id }}" >> $GITHUB_OUTPUT
+      
+    - name: Initialize project
+      run: |
+        uv init example --package -p ${{ github.event.inputs.python-version }}
+        cp requirements.txt example/requirements.in
+        cd example
+        
+        # Try to convert requirements.txt to pyproject.toml format
+        echo "[project]" > pyproject.toml
+        echo "name = \"dependency-check\"" >> pyproject.toml
+        echo "version = \"0.1.0\"" >> pyproject.toml
+        echo "requires-python = \">=${{ github.event.inputs.python-version }}\"" >> pyproject.toml
+        echo "dependencies = [" >> pyproject.toml
+        
+        # Convert requirements.txt to pyproject.toml format
+        while IFS= read -r line || [[ -n "$line" ]]; do
+          # Skip empty lines and comments
+          if [[ -z "$line" || "$line" =~ ^# ]]; then
+            continue
+          fi
+          echo "    \"$line\"," >> pyproject.toml
+        done < requirements.in
+        
+        echo "]" >> pyproject.toml
+        
+        # Create the directory for reports
+        mkdir -p ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}
+
+    - name: Check dependencies with uv
+      id: dependency-check
+      continue-on-error: true
+      run: |
+        cd example
+        
+        # Lock dependencies with detailed output
+        echo "::group::Dependency Resolution"
+        echo "Resolving dependencies..."
+        if ! uv lock 2> lock_error.log; then
+          echo "::error::Dependency resolution failed"
+          echo "Error details:"
+          cat lock_error.log
+          echo "::endgroup::"
+          
+          # Extract problematic package(s)
+          PROBLEM_PACKAGE=$(grep -oP "(?<=depends on )[^,\s]+" lock_error.log | sort -u)
+          echo "problem_package=$PROBLEM_PACKAGE" >> $GITHUB_OUTPUT
+          echo "status=failed" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+        echo "Dependencies successfully resolved"
+        echo "::endgroup::"
+        
+        echo "::group::Installing Dependencies"
+        # Try to sync the environment
+        uv sync
+        
+        # Check if all dependencies are compatible
+        if ! uv pip check > pip_check.log 2>&1; then
+          echo "::error::Dependency compatibility check failed"
