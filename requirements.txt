@@ -50,7 +50,7 @@ outlines==0.1.14
 # colbert-ai
 # ragas
 deepeval==2.4.1
-faiss-cpu
+# faiss-cpu
 evaluate
 pytest
 # rank-bm25
