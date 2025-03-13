@@ -135,7 +135,7 @@ jobs:
         # Export to various formats for the report
         echo "::group::Exporting Dependencies"
         uv pip freeze > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/requirements-frozen.txt
-        uv export --format requirements-txt > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/requirements.txt
+        uv export --no-hashes --format requirements-txt > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/requirements.txt
         cp uv.lock ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/uv.lock
         echo "::endgroup::"
         
