@@ -42,7 +42,7 @@ pymupdf
 # pdf2json
 # pymupdf4llm
 # pdfreader
-# lxml
+lxml
 xlrd
 dspy-ai~=2.6.8
 instructor
@@ -53,54 +53,54 @@ deepeval~=2.4.1
 faiss-cpu
 evaluate
 pytest
-# rank-bm25
-# rouge-score
-# bert-score
-# sacrebleu
-# bertopic
-# hdbscan
-# umap-learn
-# teradatasql
-# mysql-connector-python
-# pytesseract
-# impala
-# boto3
-# s3fs
-# cx-oracle
-# dask
-# langgraph
-# langsmith
-# autogen
-# fuzzywuzzy~=0.15.1
-# altair
-# seaborn
-# bokeh
-# spacy
-# stanfordnlp
-# tpot
-pydantic-ai
-arize-phoenix
-# openinference-instrumentation-vertexai
-# openinference-instrumentation-dspy
-# openinference-instrumentation-llama-index
-# semchunk
-# chromadb
-# unsloth
-# peft
-# trl
-# accelerate
-# llama-index-finetuning
-# impyla
-# pytorchltr
-# hLDA
-# tomotopy
-# opencv-python 
+rank-bm25
+rouge-score
+bert-score
+sacrebleu
 ipywidgets
 jupyterlab
 jupyterlab-widgets
 ipython
 jupyter-server
+# bertopic
+# hdbscan
+# umap-learn
+impyla
+teradatasql
+mysql-connector-python
+pytesseract
+impala
+boto3
+s3fs
+cx-oracle
+# dask
+langgraph
+langsmith
+autogen
+# fuzzywuzzy~=0.15.1
+# altair
+# seaborn
+# bokeh
+pydantic-ai
+arize-phoenix
+semchunk
+chromadb
+# unsloth
+# peft
+# trl
+# accelerate
+# llama-index-finetuning
+# openinference-instrumentation-vertexai
+# openinference-instrumentation-dspy
+# openinference-instrumentation-llama-index
+# opencv-python 
 # bitsandbytes
+# pypdf_table_extraction
+# hLDA
+# tomotopy
 # risotto
 # communities
-# pypdf_table_extraction
+# spacy
+# stanfordnlp
+# tpot
+# pytorchltr
