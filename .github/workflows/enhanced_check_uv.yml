@@ -45,6 +45,7 @@ jobs:
     - name: Initialize project
       run: |
         uv init example --package -p ${{ github.event.inputs.python-version }}
+        uv venv
         uv pip install setuptools
         cp requirements.txt example/requirements.in
         cd example
