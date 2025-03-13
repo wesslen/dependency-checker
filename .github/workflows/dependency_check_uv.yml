@@ -40,6 +40,7 @@ jobs:
         cd example
         uv venv
         uv pip install setuptools
+        uv pip install ipython ipywidgets jupyterlab jupyterlab-widgets jupyter-server
         uv pip sync requirements.txt
         uv pip install -r requirements.txt
         uv add pipdeptree
