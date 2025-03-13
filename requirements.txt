@@ -83,7 +83,7 @@ arize-phoenix
 # openinference-instrumentation-dspy
 # openinference-instrumentation-llama-index
 # semchunk
-chromadb
+# chromadb
 unsloth
 peft
 trl
