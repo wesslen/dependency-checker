@@ -1,10 +1,10 @@
 # setuptools
-# openai-whisper
+openai-whisper
 transformers
-# vertexai
-# google-genai
-# google-cloud-documentai
-# google-cloud-storage
+vertexai
+google-genai
+google-cloud-documentai
+google-cloud-storage
 # llama-index
 # llama-index-llms-langchain
 # llama-index-llms-openai-like
