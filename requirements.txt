@@ -62,9 +62,9 @@ jupyterlab
 jupyterlab-widgets
 ipython
 jupyter-server
-# bertopic
+bertopic
 hdbscan
-# umap-learn
+umap-learn
 impyla
 teradatasql
 mysql-connector-python
@@ -90,9 +90,9 @@ peft
 trl
 accelerate
 llama-index-finetuning
-# openinference-instrumentation-vertexai
-# openinference-instrumentation-dspy
-# openinference-instrumentation-llama-index
+openinference-instrumentation-vertexai
+openinference-instrumentation-dspy
+openinference-instrumentation-llama-index
 opencv-python 
 bitsandbytes
 pypdf_table_extraction
