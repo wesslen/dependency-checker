@@ -57,11 +57,6 @@ rank-bm25
 rouge-score
 bert-score
 sacrebleu
-ipywidgets
-jupyterlab
-jupyterlab-widgets
-ipython
-jupyter-server
 bertopic
 hdbscan
 umap-learn
