@@ -1,4 +1,5 @@
-# openai-whisper
+setuptools
+openai-whisper
 transformers
 vertexai
 google-genai
