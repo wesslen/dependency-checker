@@ -100,3 +100,113 @@ jobs:
         # Check if all dependencies are compatible
         if ! uv pip check > pip_check.log 2>&1; then
           echo "::error::Dependency compatibility check failed"
+          cat pip_check.log
+          echo "::endgroup::"
+          echo "status=warning" >> $GITHUB_OUTPUT
+        else
+          echo "All dependencies are compatible"
+          echo "status=success" >> $GITHUB_OUTPUT
+        fi
+        echo "::endgroup::"
+        
+        # Export to various formats for the report
+        echo "::group::Exporting Dependencies"
+        uv pip freeze > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/requirements-frozen.txt
+        uv export --format requirements-txt > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/requirements.txt
+        cp uv.lock ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/uv.lock
+        cp pyproject.toml ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/pyproject.toml
+        echo "::endgroup::"
+        
+        # Generate tree visualization for the report
+        echo "::group::Dependency Tree"
+        uv tree --all > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/dependency_tree.txt
+        echo "::endgroup::"
+
+    - name: Generate upgrade analysis
+      if: github.event.inputs.check-upgrades == 'true' && steps.dependency-check.outputs.status != 'failed'
+      run: |
+        cd example
+        
+        echo "::group::Upgrade Analysis"
+        mkdir -p ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis
+        
+        # For each direct dependency, check what would happen with an upgrade
+        while IFS= read -r pkg || [[ -n "$pkg" ]]; do
+          # Skip empty lines, comments, and packages with version constraints
+          if [[ -z "$pkg" || "$pkg" =~ ^# || "$pkg" =~ [=~<>] ]]; then
+            continue
+          fi
+          
+          echo "Analyzing potential upgrade for: $pkg"
+          
+          # Try to upgrade just this package
+          if uv lock --upgrade-package "$pkg" --check 2> upgrade_check.log; then
+            echo "$pkg: Can be upgraded without breaking dependencies" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
+            # Save what version it would upgrade to
+            uv lock --upgrade-package "$pkg" -vv 2>&1 | grep -A 1 "Upgraded packages" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
+          else
+            echo "$pkg: Upgrade could cause conflicts" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
+            cat upgrade_check.log >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
+          fi
+        done < requirements.in
+        echo "::endgroup::"
+
+    - name: Generate report summary
+      run: |
+        cd example
+        
+        echo "# Dependency Analysis Report" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "## Overview" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- **Python Version**: ${{ github.event.inputs.python-version }}" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- **Run ID**: ${{ github.run_id }}" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- **Timestamp**: $(date)" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- **Status**: ${{ steps.dependency-check.outputs.status }}" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        
+        if [[ "${{ steps.dependency-check.outputs.status }}" == "failed" ]]; then
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "## ❌ Dependency Resolution Failed" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "Problem package: ${{ steps.dependency-check.outputs.problem_package }}" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "See lock_error.log for details." >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          cp lock_error.log ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/
+        fi
+        
+        if [[ "${{ steps.dependency-check.outputs.status }}" == "warning" ]]; then
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "## ⚠️ Dependency Compatibility Warning" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "Packages installed successfully, but compatibility check failed. See pip_check.log for details." >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          cp pip_check.log ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/
+        fi
+        
+        if [[ "${{ steps.dependency-check.outputs.status }}" == "success" ]]; then
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "## ✅ All Dependencies Compatible" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        fi
+        
+        if [[ "${{ github.event.inputs.check-upgrades }}" == "true" && "${{ steps.dependency-check.outputs.status }}" != "failed" ]]; then
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "## Upgrade Analysis" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+          echo "See the upgrade_analysis directory for details on potential package upgrades." >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        fi
+        
+        echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "## Generated Files" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- requirements.txt - Standard pip-compatible requirements file" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- requirements-frozen.txt - Full pinned requirements including all transitive dependencies" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- pyproject.toml - Project definition in PEP 621 format" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- uv.lock - Universal lockfile for reproducible environments" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo "- dependency_tree.txt - Visual representation of the dependency tree" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+
+    - name: Commit dependency report
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add dependency_reports/
+        git commit -m "Add dependency report for Python ${{ github.event.inputs.python-version }} (Run ID: ${{ github.run_id }})" || echo "No changes to commit"
+        git push
