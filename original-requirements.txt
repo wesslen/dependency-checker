@@ -1,4 +1,3 @@
-# setuptools
 openai-whisper
 transformers
 vertexai
@@ -68,7 +67,6 @@ impala
 boto3
 s3fs
 cx-oracle
-# dask
 langgraph
 langsmith
 autogen
