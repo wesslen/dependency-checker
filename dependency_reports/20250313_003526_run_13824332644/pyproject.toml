@@ -1,0 +1,11 @@
+[project]
+name = "dependency-check"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "transformers",
+    "jupyterlab",
+    "jupyterlab-widgets",
+    "ipython",
+    "jupyter-server",
+]
