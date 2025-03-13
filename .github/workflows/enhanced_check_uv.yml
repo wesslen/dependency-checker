@@ -41,11 +41,71 @@ jobs:
     - name: Create timestamp
       id: timestamp
       run: echo "RUN_ID=$(date +"%Y%m%d_%H%M%S")_run_${{ github.run_id }}" >> $GITHUB_OUTPUT
+
+name: Install Compatible llvmlite
+
+on:
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: 'Python version to use'
+        required: true
+        default: '3.9'
+        type: string
+
+jobs:
+  install-llvmlite:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ github.event.inputs.python-version }}
+      
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      
+      - name: Determine compatible llvmlite version
+        id: determine-version
+        run: |
+          # Extract major and minor Python version
+          PYTHON_VERSION=${{ github.event.inputs.python-version }}
+          
+          # Logic to determine compatible llvmlite version
+          if [[ "$PYTHON_VERSION" == "3.10"* ]]; then
+            echo "LLVMLITE_VERSION=>=0.39.0,<0.43.0" >> $GITHUB_ENV
+            echo "Selected llvmlite >=0.39.0,<0.43.0 for Python 3.10"
+          elif [[ "$PYTHON_VERSION" == "3.11"* ]]; then
+            echo "LLVMLITE_VERSION=>=0.39.0,<0.43.0" >> $GITHUB_ENV
+            echo "Selected llvmlite >=0.39.0,<0.43.0 for Python 3.11"
+          elif [[ "$PYTHON_VERSION" == "3.12"* ]]; then
+            echo "LLVMLITE_VERSION=>=0.41.0,<0.43.0" >> $GITHUB_ENV
+            echo "Selected llvmlite >=0.41.0,<0.43.0 for Python 3.12"
+          elif [[ "$PYTHON_VERSION" == "3.9"* ]]; then
+            echo "LLVMLITE_VERSION=>=0.36.0,<0.43.0" >> $GITHUB_ENV
+            echo "Selected llvmlite >=0.36.0,<0.43.0 for Python 3.9"
+          elif [[ "$PYTHON_VERSION" == "3.8"* ]]; then
+            echo "LLVMLITE_VERSION=>=0.36.0,<0.41.0" >> $GITHUB_ENV
+            echo "Selected llvmlite >=0.36.0,<0.41.0 for Python 3.8"
+          elif [[ "$PYTHON_VERSION" == "3.7"* ]]; then
+            echo "LLVMLITE_VERSION=>=0.36.0,<0.38.0" >> $GITHUB_ENV
+            echo "Selected llvmlite >=0.36.0,<0.38.0 for Python 3.7"
+          else
+            echo "LLVMLITE_VERSION=0.36.0" >> $GITHUB_ENV
+            echo "Defaulting to llvmlite 0.36.0 for Python version $PYTHON_VERSION"
+          fi
       
     - name: Initialize project
       run: |
         uv init example --package -p ${{ github.event.inputs.python-version }}
         uv venv
+        uv pip install llvmlite${{ env.LLVMLITE_VERSION }}
         uv pip install pip
         uv pip install setuptools
         cp requirements.txt example/requirements.in
