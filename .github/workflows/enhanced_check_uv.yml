@@ -68,6 +68,10 @@ jobs:
         
         # Create the directory for reports
         mkdir -p ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}
+        
+        # Save input files immediately for reference
+        cp requirements.in ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/
+        cp pyproject.toml ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/
 
     - name: Check dependencies with uv
       id: dependency-check
@@ -82,12 +86,28 @@ jobs:
           echo "::error::Dependency resolution failed"
           echo "Error details:"
           cat lock_error.log
-          echo "::endgroup::"
+          
+          # Save error logs immediately
+          cp lock_error.log ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/lock_error.log
           
           # Extract problematic package(s)
           PROBLEM_PACKAGE=$(grep -oP "(?<=depends on )[^,\s]+" lock_error.log | sort -u)
+          if [ -z "$PROBLEM_PACKAGE" ]; then
+            # Try alternative pattern matching if first attempt fails
+            PROBLEM_PACKAGE=$(grep -o "[a-zA-Z0-9_-]\+[<>=~!]\+[0-9.]\+" lock_error.log | sort -u)
+          fi
           echo "problem_package=$PROBLEM_PACKAGE" >> $GITHUB_OUTPUT
           echo "status=failed" >> $GITHUB_OUTPUT
+          
+          # Create a minimal error report
+          echo "# Dependency Resolution Failed" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/error_report.txt
+          echo "Python version: ${{ github.event.inputs.python-version }}" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/error_report.txt
+          echo "Problem package(s): $PROBLEM_PACKAGE" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/error_report.txt
+          echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/error_report.txt
+          echo "Error details:" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/error_report.txt
+          cat lock_error.log >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/error_report.txt
+          
+          echo "::endgroup::"
           exit 1
         fi
         echo "Dependencies successfully resolved"
@@ -101,6 +121,7 @@ jobs:
         if ! uv pip check > pip_check.log 2>&1; then
           echo "::error::Dependency compatibility check failed"
           cat pip_check.log
+          cp pip_check.log ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/pip_check.log
           echo "::endgroup::"
           echo "status=warning" >> $GITHUB_OUTPUT
         else
@@ -114,7 +135,6 @@ jobs:
         uv pip freeze > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/requirements-frozen.txt
         uv export --format requirements-txt > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/requirements.txt
         cp uv.lock ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/uv.lock
-        cp pyproject.toml ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/pyproject.toml
         echo "::endgroup::"
         
         # Generate tree visualization for the report
@@ -137,16 +157,21 @@ jobs:
             continue
           fi
           
-          echo "Analyzing potential upgrade for: $pkg"
+          pkg_name=$(echo "$pkg" | cut -d'[' -f1 | tr -d ' ')
+          if [ -z "$pkg_name" ]; then
+            continue
+          fi
+          
+          echo "Analyzing potential upgrade for: $pkg_name"
           
           # Try to upgrade just this package
-          if uv lock --upgrade-package "$pkg" --check 2> upgrade_check.log; then
-            echo "$pkg: Can be upgraded without breaking dependencies" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
+          if uv lock --upgrade-package "$pkg_name" --check 2> upgrade_check.log; then
+            echo "$pkg_name: Can be upgraded without breaking dependencies" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg_name}.txt
             # Save what version it would upgrade to
-            uv lock --upgrade-package "$pkg" -vv 2>&1 | grep -A 1 "Upgraded packages" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
+            uv lock --upgrade-package "$pkg_name" -vv 2>&1 | grep -A 1 "Upgraded packages" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg_name}.txt
           else
-            echo "$pkg: Upgrade could cause conflicts" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
-            cat upgrade_check.log >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg}.txt
+            echo "$pkg_name: Upgrade could cause conflicts" > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg_name}.txt
+            cat upgrade_check.log >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/upgrade_analysis/${pkg_name}.txt
           fi
         done < requirements.in
         echo "::endgroup::"
@@ -171,7 +196,6 @@ jobs:
           echo "Problem package: ${{ steps.dependency-check.outputs.problem_package }}" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
           echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
           echo "See lock_error.log for details." >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
-          cp lock_error.log ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/
         fi
         
         if [[ "${{ steps.dependency-check.outputs.status }}" == "warning" ]]; then
@@ -179,7 +203,6 @@ jobs:
           echo "## ⚠️ Dependency Compatibility Warning" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
           echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
           echo "Packages installed successfully, but compatibility check failed. See pip_check.log for details." >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
-          cp pip_check.log ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/
         fi
         
         if [[ "${{ steps.dependency-check.outputs.status }}" == "success" ]]; then
@@ -197,11 +220,12 @@ jobs:
         echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
         echo "## Generated Files" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
         echo "" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
-        echo "- requirements.txt - Standard pip-compatible requirements file" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
-        echo "- requirements-frozen.txt - Full pinned requirements including all transitive dependencies" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
-        echo "- pyproject.toml - Project definition in PEP 621 format" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
-        echo "- uv.lock - Universal lockfile for reproducible environments" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
-        echo "- dependency_tree.txt - Visual representation of the dependency tree" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        
+        # List all generated files
+        echo "Files in report directory:" >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo '```' >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        ls -la ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/ >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
+        echo '```' >> ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/summary.md
 
     - name: Commit dependency report
       run: |
