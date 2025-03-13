@@ -32,23 +32,23 @@ sentence-transformers
 docling
 pypdf
 pymupdf
-# unstructured
-# openpyxl
-# tabula-py
-# pdfplumber
-# docx2python
-# pdf2image
-# docassemble
-# pdf2json
-# pymupdf4llm
-# pdfreader
+unstructured
+openpyxl
+tabula-py
+pdfplumber
+docx2python
+pdf2image
+docassemble
+pdf2json
+pymupdf4llm
+pdfreader
 lxml
 xlrd
 dspy-ai~=2.6.8
 instructor
 outlines~=0.1.14
-# colbert-ai
-# ragas
+colbert-ai
+ragas
 deepeval~=2.4.1
 faiss-cpu
 evaluate
@@ -63,7 +63,7 @@ jupyterlab-widgets
 ipython
 jupyter-server
 # bertopic
-# hdbscan
+hdbscan
 # umap-learn
 impyla
 teradatasql
@@ -77,24 +77,24 @@ cx-oracle
 langgraph
 langsmith
 autogen
-# fuzzywuzzy~=0.15.1
-# altair
-# seaborn
-# bokeh
+fuzzywuzzy~=0.15.1
+altair
+seaborn
+bokeh
 pydantic-ai
 arize-phoenix
 semchunk
 chromadb
-# unsloth
-# peft
-# trl
-# accelerate
-# llama-index-finetuning
+unsloth
+peft
+trl
+accelerate
+llama-index-finetuning
 # openinference-instrumentation-vertexai
 # openinference-instrumentation-dspy
 # openinference-instrumentation-llama-index
-# opencv-python 
-# bitsandbytes
+opencv-python 
+bitsandbytes
 # pypdf_table_extraction
 # hLDA
 # tomotopy
