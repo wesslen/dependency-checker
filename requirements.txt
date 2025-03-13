@@ -44,12 +44,12 @@ sentence-transformers
 # pdfreader
 # lxml
 # xlrd
-# dspy-ai==2.6.8
+# dspy-ai~=2.6.8
 instructor
-outlines==0.1.14
+outlines~=0.1.14
 # colbert-ai
 # ragas
-deepeval==2.4.1
+deepeval~=2.4.1
 faiss-cpu
 evaluate
 pytest
@@ -71,7 +71,7 @@ pytest
 # langgraph
 # langsmith
 # autogen
-# fuzzywuzzy==0.15.1
+# fuzzywuzzy~=0.15.1
 # altair
 # seaborn
 # bokeh
