@@ -90,7 +90,7 @@ openinference-instrumentation-dspy
 openinference-instrumentation-llama-index
 opencv-python 
 bitsandbytes
-pypdf_table_extraction
+# pypdf_table_extraction
 hLDA
 tomotopy
 # risotto
