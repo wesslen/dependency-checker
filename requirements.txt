@@ -1,4 +1,4 @@
-setuptools
+# setuptools
 openai-whisper
 transformers
 vertexai
@@ -30,33 +30,33 @@ langchain-google-community
 langchain-text-splitters
 sentence-transformers
 docling
-pypdf
-pymupdf
-unstructured
-openpyxl
-tabula-py
-pdfplumber
-docx2python
-pdf2image
-docassemble
-pdf2json
-pymupdf4llm
-pdfreader
-lxml
-xlrd
-dspy-ai==2.6.8
-instructor
-outlines==0.1.14
-colbert-ai
-ragas
-deepeval==2.4.1
-faiss-cpu
-evaluate
-pytest
-rank-bm25
-rouge-score
-bert-score
-sacrebleu
+# pypdf
+# pymupdf
+# unstructured
+# openpyxl
+# tabula-py
+# pdfplumber
+# docx2python
+# pdf2image
+# docassemble
+# pdf2json
+# pymupdf4llm
+# pdfreader
+# lxml
+# xlrd
+# dspy-ai==2.6.8
+# instructor
+# outlines==0.1.14
+# colbert-ai
+# ragas
+# deepeval==2.4.1
+# faiss-cpu
+# evaluate
+# pytest
+# rank-bm25
+# rouge-score
+# bert-score
+# sacrebleu
 # bertopic
 # hdbscan
 # umap-learn
