@@ -141,7 +141,8 @@ jobs:
         
         # Generate tree visualization for the report
         echo "::group::Dependency Tree"
-        uv tree --all > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/dependency_tree.txt
+        # Using simply 'uv tree' without the --all flag
+        uv tree > ../dependency_reports/${{ steps.timestamp.outputs.RUN_ID }}/dependency_tree.txt
         echo "::endgroup::"
 
     - name: Generate upgrade analysis
