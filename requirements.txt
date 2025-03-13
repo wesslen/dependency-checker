@@ -29,9 +29,9 @@ langchain-google-genai
 langchain-google-community
 langchain-text-splitters
 sentence-transformers
-# docling
-# pypdf
-# pymupdf
+docling
+pypdf
+pymupdf
 # unstructured
 # openpyxl
 # tabula-py
