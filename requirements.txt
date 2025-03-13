@@ -98,7 +98,7 @@ bitsandbytes
 pypdf_table_extraction
 hLDA
 tomotopy
-risotto
+# risotto
 communities
 spacy
 pytorchltr
